@@ -39,7 +39,8 @@ export interface Dependencies {
  *
  * - `/bff/login` and `/bff/callback`: the login, with staff, then a second, silent trip for the
  *   beneficiary registry's token.
- * - `/bff/me`: the claims of the person's tokens, which the SPA reads their roles from.
+ * - `/bff/me`: the claims of the person's tokens, which the SPA reads their roles from, and how
+ *   many seconds the login has left.
  * - `/bff/logout`: ends the session here and in staff.
  * - `/api/sgt/**` and `/api/beneficiarios/**`: each API, with its token.
  *
@@ -197,6 +198,8 @@ export function createApp({ config, staff, sessions, now = Date.now }: Dependenc
     return c.json({
       idToken: session.idToken ? claimsOf(session.idToken) : {},
       accessToken: claimsOf(grant.accessToken),
+      // How long until the login ends, rather than when, so the browser's clock need not agree with ours.
+      expiresIn: Math.max(0, Math.floor((session.expiresAt - now()) / 1000)),
     });
   });
 

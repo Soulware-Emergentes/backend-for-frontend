@@ -144,6 +144,16 @@ describe('logging in', () => {
     expect(me.idToken.sub).toBe('person');
   });
 
+  test('tells how many seconds the login has left', async () => {
+    const browser = new Browser();
+    await browser.logIn();
+    clock += HOUR;
+
+    const me = (await (await browser.request('/bff/me')).json()) as { expiresIn: number };
+
+    expect(me.expiresIn).toBe(8 * 3600);
+  });
+
   test('gives the browser only a session cookie it cannot read, and the CSRF token it must echo', async () => {
     const browser = new Browser();
     const start = await browser.request('/bff/login');

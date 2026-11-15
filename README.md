@@ -10,7 +10,7 @@ API takes.
 | --- | --- |
 | `GET /bff/login?returnUrl=&prompt=none&ui_locales=` | Logs in with staff, then silently gets the beneficiary registry's token, and goes on to `returnUrl`. A silent login staff cannot complete ends on `/welcome?signedOut`. |
 | `GET /bff/callback` | Where staff redirects back to. |
-| `GET /bff/me` | The claims of the person's ID and sgt access tokens. |
+| `GET /bff/me` | The claims of the person's ID and sgt access tokens, and `expiresIn`: the seconds the login has left. |
 | `POST /bff/logout` | Ends the session here and in staff. |
 | `/api/sgt/**`, `/api/beneficiarios/**` | Each API, with its token. |
 
