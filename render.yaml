@@ -1,0 +1,33 @@
+services:
+  - type: web
+    name: sgt-bff-dev
+    runtime: docker
+    plan: free
+    region: oregon
+    envVars:
+      - key: PORT
+        value: "10000"
+      # This service's own public URL, e.g. https://sgt-bff-dev.onrender.com
+      - key: BFF_PUBLIC_URL
+        sync: false
+      # staff-dev's public URL, e.g. https://staff-dev.onrender.com
+      - key: STAFF_ISSUER
+        sync: false
+      - key: BFF_CLIENT_ID
+        value: sgt-bff-dev
+      - key: BFF_CLIENT_SECRET
+        value: sgt-bff-dev-secret
+      # e.g. https://sgt-dev.onrender.com/api/v1
+      - key: SGT_API
+        sync: false
+      - key: SGT_SCOPE
+        value: openid profile sgt-api-dev
+      # e.g. https://beneficiarios-dev.onrender.com/api/v1
+      - key: BENEFICIARIOS_API
+        sync: false
+      - key: BENEFICIARIOS_SCOPE
+        value: beneficiarios-api-dev
+      - key: SESSION_MAX
+        value: 9h
+      - key: SECURE_COOKIES
+        value: "true"
