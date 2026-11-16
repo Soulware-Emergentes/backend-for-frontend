@@ -13,7 +13,7 @@ const app = createApp({ config, staff: staffAt(config), sessions });
 // Where this deployment serves the SPA too: its files, and index.html for any route of its own.
 if (config.staticDir) {
   app.use('/*', serveStatic({ root: config.staticDir }));
-  app.get('/*', serveStatic({ path: `${config.staticDir}/index.html` }));
+  app.get('/*', serveStatic({ root: config.staticDir, path: 'index.html' }));
 }
 
 setInterval(() => sessions.sweep(), SWEEP_EVERY_MS);
